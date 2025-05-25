@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
   front:
-    build: ./app/front
+    build: ./app/lab-03-starter-project-javascript/front
     container_name: front-container
     command: npm run dev
     ports:
@@ -35,7 +35,7 @@ services:
    
 
   back:
-    build: ./app/back
+    build: ./app/lab-03-starter-project-javascript/back
     container_name: back-container
     command: npm run start
     ports:
