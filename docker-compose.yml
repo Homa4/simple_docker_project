@@ -1,9 +1,29 @@
-version: '3'
 
 services:
+  python-app:
+    build:
+      context: ./app/lab-03-starter-project-python
+    container_name: python-app
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./app/lab-03-starter-project-python:/app
+    restart: unless-stopped
+
+  go-app:
+    build:
+      context: ./app/lab-03-starter-project-golang
+      dockerfile: Dockerfile
+    container_name: go-app
+    volumes:
+         - ./app/lab-03-starter-project-golang:/app
+    ports:
+      - "8082:8080"
+    restart: unless-stopped
+
   front:
-    build: ./app/front
-    container_name: simple-docker-project-front
+    build: ./app/lab-03-starter-project-javascript/front
+    container_name: front-container
     command: npm run dev
     ports:
       - "3000:3000"
@@ -15,8 +35,8 @@ services:
    
 
   back:
-    build: ./app/back
-    container_name: simple-docker-project-back
+    build: ./app/lab-03-starter-project-javascript/back
+    container_name: back-container
     command: npm run start
     ports:
       - "3001:3001"
