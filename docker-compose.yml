@@ -1,28 +1,23 @@
-version: '3'
 
 services:
-  front:
-    build: ./app/front
-    container_name: simple-docker-project-front
-    command: npm run dev
+  python-app:
+    build:
+      context: ./app/lab-03-starter-project-python
+    container_name: python-app
     ports:
-      - "3000:3000"
+      - "8081:8080"
+    volumes:
+      - ./app/lab-03-starter-project-python:/app
     restart: unless-stopped
-    stdin_open: true
-    tty: true
-    networks:
-      - app-network
-   
 
-  back:
-    build: ./app/back
-    container_name: simple-docker-project-back
-    command: npm run start
+  go-app:
+    build:
+      context: ./app/lab-03-starter-project-golang
+      dockerfile: Dockerfile
+    container_name: go-app
+    volumes:
+         - ./app/lab-03-starter-project-golang:/app
     ports:
-      - "3001:3001"
-    networks:
-      - app-network
+      - "8082:8080"
+    restart: unless-stopped
 
-networks:
-  app-network:
-    driver: bridge
